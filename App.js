@@ -1,21 +1,29 @@
 import React from "react";
-import { StyleSheet, Text, SafeAreaView } from "react-native";
+import { StyleSheet, Text, SafeAreaView, StatusBar, View } from "react-native";
+import { Searchbar } from "react-native-paper";
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Page content</Text>
+    <SafeAreaView style={{ flex: 1, paddingTop: StatusBar.currentHeight }}>
+      <View style={styles.SearchWrapper}>
+        <Searchbar placeholder="Search" elevation={5} />
+      </View>
+      <View style={styles.ListWrapper}>
+        <Text>List</Text>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  SearchWrapper: {
+    backgroundColor: "white",
+    padding: 16,
   },
-  text: {
-    fontSize: 25,
-    fontWeight: "500",
+  ListWrapper: {
+    backgroundColor: "blue",
+    padding: 16,
+    flex: 1,
   },
 });
 
