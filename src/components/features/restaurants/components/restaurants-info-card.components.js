@@ -1,14 +1,29 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { Card } from "react-native-paper";
 import styled from "styled-components/native";
-
-const Address = styled(Text)`
-  padding: 18px;
-`;
+import { SvgXml } from "react-native-svg";
+import star from "../../../../../assets/star";
 
 const RestaurantCard = styled(Card)`
-  flex: 0.5;
+  background-color: ${(props) => props.theme.colors.ui.tertiary};
+`;
+const Info = styled(View)`
+  padding: ${(props) => props.theme.space[3]};
+`;
+const Title = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-weight: ${(props) => props.theme.fontWeights.bold};
+  font-size: ${(props) => props.theme.fontSizes.title};
+  color: ${(props) => props.theme.colors.ui.primary};
+`;
+const Rating = styled(View)`
+  flex-direction: row;
+  padding: ${(props) => props.theme.space[2]} 0;
+`;
+const Address = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.caption};
 `;
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
@@ -20,10 +35,10 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     ],
     address = "100 some random street",
     isOpenNow = true,
-    rating = 4,
+    rating = 3.5,
     isClosedTemporarily,
   } = restaurant;
-
+  const ratingArray = Array.from(new Array(Math.floor(rating)));
   return (
     <>
       <RestaurantCard mode="elevated" elevation={5}>
@@ -32,8 +47,17 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
             uri: photos[0],
           }}
         />
-        <Card.Title title={name} />
-        <Address>{address}</Address>
+        <Info>
+          <Title>{name}</Title>
+
+          <Rating>
+            {ratingArray.map(() => {
+              return <SvgXml xml={star} height={20} width={20}></SvgXml>;
+            })}
+          </Rating>
+
+          <Address>{address}</Address>
+        </Info>
       </RestaurantCard>
     </>
   );
