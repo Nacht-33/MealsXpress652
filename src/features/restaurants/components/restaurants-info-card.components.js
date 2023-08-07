@@ -1,22 +1,25 @@
 import React from "react";
-import { Text, View, Image } from "react-native";
+import { View, Image } from "react-native";
 import { Card } from "react-native-paper";
 import styled from "styled-components/native";
 import { SvgXml } from "react-native-svg";
-import star from "../../../../../assets/star";
-import open from "../../../../../assets/open";
+import star from "../../../../assets/star";
+import open from "../../../../assets/open";
+import { Spacer } from "../../../components/spacer/spacer.components";
+import { theme } from "../../../infrastructure/theme";
+import { Text } from "../../../components/typography/text.components";
 const RestaurantCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.ui.tertiary};
 `;
 const Info = styled(View)`
   padding: ${(props) => props.theme.space[3]};
 `;
-const Title = styled(Text)`
-  font-family: ${(props) => props.theme.fonts.heading};
-  font-weight: ${(props) => props.theme.fontWeights.bold};
-  font-size: ${(props) => props.theme.fontSizes.title};
-  color: ${(props) => props.theme.colors.ui.primary};
-`;
+// const Title = styled(Text)`
+//   font-family: ${(props) => props.theme.fonts.heading};
+//   font-weight: ${(props) => props.theme.fontWeights.bold};
+//   font-size: ${(props) => props.theme.fontSizes.title};
+//   color: ${(props) => props.theme.colors.ui.primary};
+// `;
 const Section = styled(View)`
   padding: ${(props) => props.theme.space[2]} 0;
   flex-direction: row;
@@ -32,12 +35,10 @@ const Rating = styled(View)`
 const Closed = styled(Text)`
   color: ${(props) => props.theme.colors.text.error};
 `;
-const ClosedSpacer = styled(View)`
-  padding-right: ${(props) => props.theme.space[3]};
-`;
 
-const ImageSpacer = styled(View)`
-  padding-left: ${(props) => props.theme.space[3]};
+const Icon = styled(Image)`
+  height: 15px;
+  width: 15px;
 `;
 
 const Address = styled(Text)`
@@ -67,7 +68,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
           }}
         />
         <Info>
-          <Title>{name}</Title>
+          <Text variant="title">{name}</Text>
 
           <Section>
             <Rating>
@@ -76,15 +77,21 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
               })}
             </Rating>
             <StatusSection>
-              {isClosedTemporarily && <Closed>Closed Temporarily</Closed>}
-              <ClosedSpacer />
-              {isOpenNow && <SvgXml xml={open} height={20} width={20}></SvgXml>}
-              <ImageSpacer />
-              <Image style={{ width: 15, height: 15 }} source={{ uri: icon }} />
+              {isClosedTemporarily && (
+                <Text variant="error">Closed Temporarily</Text>
+              )}
+              <Spacer position="left" size="large" theme={theme}>
+                {isOpenNow && (
+                  <SvgXml xml={open} height={20} width={20}></SvgXml>
+                )}
+              </Spacer>
+              <Spacer position="left" size="large" theme={theme}>
+                <Icon source={{ uri: icon }} />
+              </Spacer>
             </StatusSection>
           </Section>
 
-          <Address>{address}</Address>
+          <Text variant="caption">{address}</Text>
         </Info>
       </RestaurantCard>
     </>
