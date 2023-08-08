@@ -47,7 +47,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
                 const keyID = Math.floor(Math.random() * 100);
                 return (
                   <SvgXml
-                    key={keyID}
+                    key={keyID.toString()}
                     xml={star}
                     height={20}
                     width={20}
