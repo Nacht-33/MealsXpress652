@@ -1,50 +1,20 @@
 import React from "react";
-import { View, Image } from "react-native";
-import { Card } from "react-native-paper";
-import styled from "styled-components/native";
 import { SvgXml } from "react-native-svg";
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
 import { Spacer } from "../../../components/spacer/spacer.components";
 import { theme } from "../../../infrastructure/theme";
 import { Text } from "../../../components/typography/text.components";
-const RestaurantCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.ui.tertiary};
-`;
-const Info = styled(View)`
-  padding: ${(props) => props.theme.space[3]};
-`;
-// const Title = styled(Text)`
-//   font-family: ${(props) => props.theme.fonts.heading};
-//   font-weight: ${(props) => props.theme.fontWeights.bold};
-//   font-size: ${(props) => props.theme.fontSizes.title};
-//   color: ${(props) => props.theme.colors.ui.primary};
-// `;
-const Section = styled(View)`
-  padding: ${(props) => props.theme.space[2]} 0;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const StatusSection = styled(View)`
-  flex-direction: row;
-`;
-const Rating = styled(View)`
-  flex-direction: row;
-`;
 
-const Closed = styled(Text)`
-  color: ${(props) => props.theme.colors.text.error};
-`;
-
-const Icon = styled(Image)`
-  height: 15px;
-  width: 15px;
-`;
-
-const Address = styled(Text)`
-  font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
-`;
+import {
+  RestaurantCard,
+  RestaurantCardCover,
+  Info,
+  Section,
+  StatusSection,
+  Rating,
+  Icon,
+} from "./restaurants.info-card.style";
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -59,10 +29,11 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     isClosedTemporarily = true,
   } = restaurant;
   const ratingArray = Array.from(new Array(Math.floor(rating)));
+
   return (
     <>
       <RestaurantCard mode="elevated" elevation={5}>
-        <Card.Cover
+        <RestaurantCardCover
           source={{
             uri: photos[0],
           }}
@@ -73,7 +44,15 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
           <Section>
             <Rating>
               {ratingArray.map(() => {
-                return <SvgXml xml={star} height={20} width={20}></SvgXml>;
+                const keyID = Math.floor(Math.random() * 100);
+                return (
+                  <SvgXml
+                    key={keyID}
+                    xml={star}
+                    height={20}
+                    width={20}
+                  ></SvgXml>
+                );
               })}
             </Rating>
             <StatusSection>
